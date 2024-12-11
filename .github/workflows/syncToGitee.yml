@@ -20,10 +20,9 @@ jobs:
 
       - name: Add Gitee remote
         run: |
-          git remote add gitee https://${{ secrets.GITEE_USERNAME }}:${{ secrets.GITEE_SECRET_KEY }}@gitee.com/${{ secrets.GITEE_USERNAME }}/wstore.git
-          # 上面这行命令是添加Gitee仓库作为远程仓库，注意替换为你自己的Gitee仓库相关信息
 
-      - name: Push to Gitee
-        run: |
-          git push gitee --all # 将所有分支推送到Gitee仓库
-          git push gitee --tags # 将所有标签也推送到Gitee仓库
+          git push https://${GITEE_USERNAME}:${GITEE_TOKEN}@gitee.com/${GITEE_USERNAME}/wstore.git 
+
+        env:
+          GITEE_USERNAME: ${{ secrets.GITEE_USERNAME }}
+          GITEE_TOKEN: ${{ secrets.GITEE_SECRET_KEY }}
