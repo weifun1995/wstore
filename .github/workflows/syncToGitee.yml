@@ -22,5 +22,5 @@ jobs:
         run: |
           git push https://${GITEE_USERNAME}:${GITEE_TOKEN}@gitee.com/${GITEE_USERNAME}/wstore.git 
         env:
-          GITEE_USERNAME: ${{ secrets.GITEE_USERNAME }}
-          GITEE_TOKEN: ${{ GITEE_SECRET_KEY }}
+          GITEE_USERNAME: ${{ GITEE_USERNAME }}
+          GITEE_TOKEN: ${{ secrets.GITEE_SECRET_KEY }}
