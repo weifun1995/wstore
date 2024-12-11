@@ -1,0 +1,29 @@
+name: Sync to Gitee
+on:
+  push:
+    branches:
+      - main # 根据实际情况修改，这里表示只在main分支有推送操作时触发同步，也可以设置为['*']来对所有分支触发
+  schedule:
+    - cron: '0 0 * * *' # 每天凌晨自动触发一次同步（可根据需求调整时间间隔）
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub repo
+        uses: actions/checkout@v3 # 检出当前GitHub仓库的代码
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'weigee' 
+          git config --global user.email 'weifun1995@163.com'
+
+      - name: Add Gitee remote
+        run: |
+          git remote add gitee https://${{ secrets.GITEE_USERNAME }}:${{ secrets.GITEE_SECRET_KEY }}@gitee.com/${{ secrets.GITEE_USERNAME }}/你的Gitee仓库名.git
+          # 上面这行命令是添加Gitee仓库作为远程仓库，注意替换为你自己的Gitee仓库相关信息
+
+      - name: Push to Gitee
+        run: |
+          git push gitee --all # 将所有分支推送到Gitee仓库
+          git push gitee --tags # 将所有标签也推送到Gitee仓库
